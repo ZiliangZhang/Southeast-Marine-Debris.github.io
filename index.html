@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>iSensor – Microplastics Portal</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- Bootstrap (utilities & grid only) -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/timeline.css">
+
+
+	<style>
+		:root{
+		  --bg:#0b1726;
+		  --ink:#0f2437;
+		  --card:#ffffff;
+		  --muted:#6c7a89;
+		  --accent:#1ea7fd;
+		}
+		*{box-sizing:border-box}
+		html{scroll-behavior:smooth}
+		body{
+		  margin:0;
+		  font-family:system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+		  color:var(--ink);
+		  background:#f4f7fb;
+		  line-height:1.5;
+		}
+
+		/* ---------- FOOTER ---------- */
+		/*footer{
+		  background:#0e2a43; color:#cfe8ff; padding:2rem 0; margin-top:2rem;
+		}
+		footer a{color:#fff; text-decoration:none}
+		footer a:hover{text-decoration:underline}*/
+	</style>
+</head>
+
+<body>
+
+	<!-- HERO -->
+	<header class="hero" id="home">
+		<div class="hero-inner">
+			<h1>Science Serving Our Waters</h1>
+			<p class="lead">
+				A portal for our microplastics program—integrating story, holistic monitoring,
+				sensor development, and a community calendar of microplastic-related events.
+			</p>
+		</div>
+		<div class="down-indicator">Scroll</div>
+	</header>
+
+	<main>
+		<section id="featured-news" class="section">
+			<div class="container">
+				<h2>Featured News</h2>
+				<div id="sg-news" class="row g-4"></div>
+			</div>
+		</section>
+
+		<script>
+			// ---- CONFIG ----
+			const FEEDS = [
+				'https://seagrant.noaa.gov/our-story/news/feed/',
+				'https://seagrant.noaa.gov/category/featured-news/feed/',
+				'https://seagrant.noaa.gov/feed/'
+			];
+
+			// Simple RSS fetcher (needs a CORS-friendly endpoint).
+			async function fetchFeed(url) {
+				const res = await fetch(url);
+				if (!res.ok) throw new Error('feed fetch failed');
+				const xml = await res.text();
+				const doc = new window.DOMParser().parseFromString(xml, 'application/xml');
+				// try RSS 2.0
+				let items = [...doc.querySelectorAll('channel > item')].slice(0,6).map(n => ({
+					title: n.querySelector('title')?.textContent?.trim(),
+					link: n.querySelector('link')?.textContent?.trim(),
+					date: n.querySelector('pubDate')?.textContent?.trim(),
+					img: n.querySelector('enclosure[url]')?.getAttribute('url') ||
+					doc.querySelector('image > url')?.textContent?.trim()
+				}));
+				if (items.length === 0) {
+					// Atom fallback
+					items = [...doc.querySelectorAll('entry')].slice(0,6).map(n => ({
+						title: n.querySelector('title')?.textContent?.trim(),
+						link: n.querySelector('link')?.getAttribute('href'),
+						date: n.querySelector('updated, published')?.textContent?.trim(),
+						img: n.querySelector('link[rel="enclosure"]')?.getAttribute('href')
+					}));
+				}
+				return items;
+			}
+
+			(async () => {
+				let items = [];
+				for (const u of FEEDS) {
+					try { items = await fetchFeed(u); if (items.length) break; } catch {}
+				}
+				const wrap = document.getElementById('sg-news');
+				if (!items.length) { wrap.innerHTML = '<p class="text-muted">No feed available.</p>'; return; }
+
+				wrap.innerHTML = items.map(it => `
+					<div class="col-md-6 col-lg-4">
+						<article class="card-lite h-100 p-3">
+							${it.img ? `<img class="w-100 rounded-3 mb-3" style="height:180px;object-fit:cover" src="${it.img}" alt="">` : ''}
+							<h5 class="mb-2"><a href="${it.link}" target="_blank" rel="noopener">${it.title}</a></h5>
+							<div class="small text-muted">${new Date(it.date).toLocaleDateString()}</div>
+						</article>
+					</div>
+				`).join('');
+			})();
+		</script>
+
+		<!-- Our Story -->
+		<section id="our-story" class="section">
+			<div class="container">
+				<h2>Our Story</h2>
+				<p class="subtle">
+					Our journey combines dedicated members, sustained research efforts, and strong community engagement.
+					Together, we build knowledge, test innovations, and share insights with partners across research,
+					government, industry, and society.
+				</p>
+
+				<div class="row g-4 mb-5">
+
+					<!-- Our Members -->
+					<div class="col-lg-6">
+						<article class="card-lite p-4 h-100">
+							<h5 class="mb-3">Our Members</h5>
+							<pre>
+PI : Mark Cheng, The University of Alabama
+Co-PI: Puxian Gao, The University of Connecticut
+Co-PI: Adam Skarke, Mississippi State University 
+Co-PI: Ebenezer Nyadjro, Mississippi State University 
+Co-PI: Shaowu Bao, Coastal Carolina University
+Co-PI: Mike Fedoroff , The University of Alabama
+Sea Lisian: Anthony Vedral 
+Partners: MS-AI Sea Grant, SC Sea Grant
+							</pre>
+							<img src="imgs/Picture3.png" class="w-100 rounded-3">
+						</article>
+					</div>
+
+					<!-- Community Building and Engagement -->
+					<div class="col-lg-6">
+						<figure class="card-lite p-2">
+							<img src="imgs/Picture2.png"
+							alt="Community and stakeholder engagement framework: research, industry, agencies, and society"
+							class="w-100 rounded-3">
+							<figcaption class="small text-muted px-2 py-2">
+								Community building and engagement bring together research, federal and state agencies,
+								industry, agriculture, and society to address marine debris and microplastics challenges.
+							</figcaption>
+						</figure>
+					</div>
+
+					
+				</div>
+
+				<div class="row g-4">
+
+					<!-- Research Timeline -->
+					<div class="col-12">
+						<section class="mp-timeline" aria-label="Research timeline">
+
+							<!-- 2020 lab -->
+							<article class="mp-tl-item">
+								<div class="mp-tl-card">
+									<h5 class="mb-2">Early 2020 @ UA</h5>
+									<p class="mb-3">First benchtop prototype and flow-control tests in the lab.</p>
+									<img src="imgs/Picture4.png" alt="Lab prototype in early 2020" class="mp-tl-img">
+								</div>
+							</article>
+
+							<!-- 2020 field -->
+							<article class="mp-tl-item">
+								<div class="mp-tl-card">
+									<h5 class="mb-2">Oct 2020 · Lake Lurleen State Park</h5>
+									<p class="mb-3">Initial field deployment and sampling workflow validation.</p>
+									<img src="imgs/Picture5.png" alt="Field test at Lake Lurleen 2020" class="mp-tl-img">
+								</div>
+							</article>
+
+							<!-- 2022 pilot -->
+							<article class="mp-tl-item">
+								<div class="mp-tl-card">
+									<h5 class="mb-2">Summer 2022 · Michigan</h5>
+									<p class="mb-3">Pilot deployments in streams; ruggedized enclosure and power system.</p>
+									<img src="imgs/Picture6.jpg" alt="Pilot deployment in Michigan 2022" class="mp-tl-img">
+								</div>
+							</article>
+
+							<!-- 2024 validation -->
+							<article class="mp-tl-item">
+								<div class="mp-tl-card">
+									<h5 class="mb-2">2024 · Tested by USGS</h5>
+									<p class="mb-3">Independent validation and side-by-side comparisons with reference methods.</p>
+									<img src="imgs/Picture7.jpg" alt="USGS testing in 2024" class="mp-tl-img">
+								</div>
+							</article>
+						</section>
+					</div>
+
+					
+				</div>
+			</div>
+		</section>
+
+
+	    <!-- Holistic Monitoring -->
+		<section id="holistic" class="section">
+			<div class="container">
+				<h2>Holistic Monitoring of Microplastics</h2>
+				<p class="subtle">
+					Plastics are released, weathered by UV, and fragment into micro- and nano-plastics. Particles are
+					transported by soil erosion and runoff, wind dispersal, and flooding—with additional inputs from
+					wastewater and land-applied sludge. Rivers convey them to lakes and coasts, where they continue to
+					break down and are taken up by aquatic organisms; some also accumulate in soils and sediments.
+				</p>
+
+				<div class="row g-4 align-items-center">
+					<!-- Diagram -->
+					<div class="col-lg-6">
+						<figure class="card-lite p-2">
+							<img src="imgs/Picture1.jpg"
+							alt="Pathways of microplastics: UV fragmentation, runoff, wind dispersal, wastewater/sludge inputs, river transport to lakes/ocean, biotic intake, and continued breakdown."
+							class="w-100 rounded-3">
+							<figcaption class="small text-muted px-2 py-2">
+								Schematic of sources, pathways, exposure, and fate of microplastics across the watershed.
+							</figcaption>
+						</figure>
+					</div>
+
+					<!-- Key takeaways -->
+					<div class="col-lg-6">
+						<article class="card-lite p-4">
+							<h5 class="mb-3">What this means for monitoring</h5>
+							<ul class="mb-3">
+								<li><strong>Sources:</strong> consumer plastics and microbeads; sludge applied to land.</li>
+								<li><strong>Transformation:</strong> UV weathering → fragmentation into MPs/NPs.</li>
+								<li><strong>Transport:</strong> soil erosion &amp; runoff, wind dispersal, flooding.</li>
+								<li><strong>Water inputs:</strong> wastewater effluent and storm-driven pulses.</li>
+								<li><strong>Exposure:</strong> aquatic organisms ingest transported particles.</li>
+								<li><strong>Fate:</strong> continued breakdown; accumulation in soils/sediments.</li>
+							</ul>
+							<p class="mb-0">
+								Our program links field sampling, in-situ sensing, image/ML detection, and confirmatory spectroscopy
+								to quantify each stage in this pathway.
+							</p>
+						</article>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+		<!-- Sensors Development -->
+		<section id="sensors" class="section">
+			<div class="container">
+				<h2>Sensors Development</h2>
+
+				<div class="row g-4">
+					<div class="col-lg-6">
+						<article class="card-lite p-4">
+							<h5 class="mb-3">Sensors</h5>
+							<img src="imgs/Picture8.jpg" class="w-100 rounded-3">
+						</article>
+					</div>
+
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<!-- Quick nav + Back to top -->
+	<nav class="quick-nav" aria-label="Section navigation">
+		<a href="#our-story">Our Story</a>
+		<a href="#holistic">Monitoring</a>
+		<a href="#sensors">Sensors</a>
+		<a href="#events">Events</a>
+	</nav>
+	<!-- <a class="backtop" href="#home" aria-label="Back to top">↑</a> -->
+
+<!-- 	<footer>
+		<div class="container small">
+			<div class="row g-3 align-items-center">
+				<div class="col-md">
+					© <span id="y"></span> iSensor Microplastics Program
+				</div>
+				<div class="col-md text-md-end">
+					<a href="#home">Home</a> · <a href="#our-story">Our Story</a> · <a href="#holistic">Monitoring</a> · <a href="#sensors">Sensors</a> · <a href="#events">Events</a>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script>
+		// year
+		document.getElementById('y').textContent = new Date().getFullYear();
+	</script> -->
+</body>
+</html>
