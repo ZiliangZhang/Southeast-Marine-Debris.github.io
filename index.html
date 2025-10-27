@@ -2,17 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
-	<title>iSensor – Microplastics Portal</title>
+	<title>Microplastics Portal</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<!-- Bootstrap (utilities & grid only) -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/timeline.css">
-
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-	<script
-		src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
-	</script>
-
 
 
 	<style>
@@ -47,30 +41,221 @@
 	<!-- HERO -->
 	<header class="hero" id="home">
 		<div class="hero-inner">
-			<h1>Science Serving Our Waters</h1>
+			<h1>Addressing the Microplastic Problem through a New Lens</h1>
 			<p class="lead">
-				A portal for our microplastics program—integrating story, holistic monitoring,
-				sensor development, and a community calendar of microplastic-related events.
+				A portal to our research for developing an integrated sensor to detect and monitor microplastics
 			</p>
 		</div>
 		<div class="down-indicator">Scroll</div>
 	</header>
 
 	<main>
+
+		<!-- Our Story -->
+		<section id="our-story" class="section">
+			<div class="container">
+				<h2>Our Story</h2>
+				<p class="subtle">
+					Microplastics are found worldwide, but they are notoriously difficult to study due to their small size and the abundance of other non-plastic particulates in water. Our work aims to develop a sensor that can identify microplastics in a variety of water conditions, while providing data in near real-time.
+				</p>
+
+				<p class="subtle">
+					Through advanced nanofiltration, combined with a high-speed, machine-learning integrated camera and Raman laser, our team has been designing and testing a cutting-edge instrument to lead microplastic research into a new frontier. 
+				</p>
+
+				<p class="subtle">
+					We strive to take a process that traditionally involves days or even weeks of meticulous labwork, and reduce it to a matter of minutes, offering scientists, municipalities (drinking water or wastewater treatment), aquaculture, and educators a modern approach for addressing microplastics within their work and communities.
+				</p>
+
+				<div class="row g-4 mb-5">
+
+					<!-- Our Team -->
+					<div class="col-lg-6">
+						<article class="card-lite p-4 h-100">
+							<h5 class="mb-3">Our Team</h5>
+							<pre>
+PI : Mark Cheng, PhD - The University of Alabama / Indiana University
+Co-PI: Puxian Gao, PhD - The University of Connecticut
+Co-PI: Adam Skarke, PhD - Mississippi State University 
+Co-PI: Ebenezer Nyadjro, PhD - Mississippi State University 
+Co-PI: Shaowu Bao, PhD - Coastal Carolina University
+Co-PI: Michael Fedoroff, PhD - The University of Alabama Water Institute
+Anthony Vedral, The University of Alabama Water Institute, Mississippi-Alabama Sea Grant Consortium
+Partners: NOAA Sea Grant, Mississippi-Alabama Sea Grant Consortium, South Carolina Sea Grant Consortium, Alabama Wildlife Federation
+							</pre>
+							<img src="imgs/Picture3.png" class="w-100 rounded-3">
+						</article>
+					</div>
+
+					<!-- Community Building and Engagement -->
+					<div class="col-lg-6">
+						<figure class="card-lite p-2">
+							<img src="imgs/Picture2.png"
+							alt="Community and stakeholder engagement framework: research, industry, agencies, and society"
+							class="w-100 rounded-3">
+							<figcaption class="small text-muted px-2 py-2">
+								Community building and engagement bring together research, federal and state agencies,
+								industry, agriculture, and society to address marine debris and microplastics challenges.
+							</figcaption>
+						</figure>
+					</div>
+
+					
+				</div>
+
+				
+			</div>
+		</section>
+
+
+	    <!-- Holistic Monitoring -->
+		<section id="holistic" class="section">
+			<div class="container">
+				<h2>A Deep Dive into Microplastics</h2>
+				<p class="subtle">
+					Microplastics, defined as plastic particles smaller than 5 mm in size, can be found throughout water sources worldwide, including both natural waterways and human systems such as municipal drinking water supplies. Most microplastics originate from larger pieces of plastic that weather and fragment over time. Due to the complex molecular structure of plastics, they degrade very slowly, resulting in continued accumulation of microplastic concentrations in our waters.
+				</p>
+
+				<p class="subtle">
+					Plastics have been commercially produced for less than a century, but as global plastic demand grows unsustainably, production of plastic items is ever-increasing, resulting in a cascading problem. Because of plastic’s relatively recent invention, scientists are now just beginning to understand its potential negative effects. Since the turn of the 21st century, researchers have discovered the presence of micro- (and now nano-) plastics within the water we drink and food we eat. More recently, scientists have identified microplastics and nanoplastics throughout a myriad of systems within human bodies. Researchers are just now beginning to understand some of the potential threats microplastics pose to our environment and ourselves, with new data continuing to shed light on this growing problem.
+				</p>
+
+				<div class="row g-4 align-items-center">
+					<!-- Diagram -->
+					<div class="col-12">
+						<figure class="card-lite p-2">
+							<img src="imgs/Picture1.jpg"
+							alt="Pathways of microplastics: UV fragmentation, runoff, wind dispersal, wastewater/sludge inputs, river transport to lakes/ocean, biotic intake, and continued breakdown."
+							class="w-100 rounded-3">
+							<figcaption class="small text-muted px-2 py-2">
+								Schematic of sources, pathways, exposure, and fate of microplastics across the watershed.
+							</figcaption>
+						</figure>
+					</div>
+
+					<!-- Key takeaways -->
+					<!-- <div class="col-lg-6">
+						<article class="card-lite p-4">
+							<h5 class="mb-3">What this means for monitoring</h5>
+							<ul class="mb-3">
+								<li><strong>Sources:</strong> consumer plastics and microbeads; sludge applied to land.</li>
+								<li><strong>Transformation:</strong> UV weathering → fragmentation into MPs/NPs.</li>
+								<li><strong>Transport:</strong> soil erosion &amp; runoff, wind dispersal, flooding.</li>
+								<li><strong>Water inputs:</strong> wastewater effluent and storm-driven pulses.</li>
+								<li><strong>Exposure:</strong> aquatic organisms ingest transported particles.</li>
+								<li><strong>Fate:</strong> continued breakdown; accumulation in soils/sediments.</li>
+							</ul>
+							<p class="mb-0">
+								Our program links field sampling, in-situ sensing, image/ML detection, and confirmatory spectroscopy
+								to quantify each stage in this pathway.
+							</p>
+						</article>
+					</div> -->
+				</div>
+			</div>
+		</section>
+
+
+		<!-- Global Plastic Production over Time -->
+		<section id="global" class="section">
+			<div class="container">
+				<h2>Global Plastic Production over Time</h2>
+
+				<div class="row g-4">
+					<div class="col-lg-6">
+						<article class="card-lite p-4">
+							<h5 class="mb-3">Sensors</h5>
+							<img src="imgs/Picture8.jpg" class="w-100 rounded-3">
+						</article>
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+		<!-- Tracking our Progress -->
+		<section id="timeline" class="section">
+			<div class="container">
+				<h2>Tracking our Progress</h2>
+				<div class="row g-4">
+
+					<!-- Research Timeline -->
+					<div class="col-12">
+						<section class="mp-timeline" aria-label="Research timeline">
+
+							<!-- 2020 lab -->
+							<article class="mp-tl-item">
+								<div class="mp-tl-card">
+									<h5 class="mb-2">Early 2020</h5>
+									<p class="mb-3">First benchtop prototype and flow-control tests in the lab.</p>
+									<img src="imgs/Picture4.png" alt="Lab prototype in early 2020" class="mp-tl-img">
+								</div>
+							</article>
+
+							<!-- 2020 field -->
+							<article class="mp-tl-item">
+								<div class="mp-tl-card">
+									<h5 class="mb-2">Oct 2020</h5>
+									<p class="mb-3">Initial field deployment and sampling workflow validation.</p>
+									<img src="imgs/Picture5.png" alt="Field test at Lake Lurleen 2020" class="mp-tl-img">
+								</div>
+							</article>
+
+							<!-- 2022 pilot -->
+							<article class="mp-tl-item">
+								<div class="mp-tl-card">
+									<h5 class="mb-2">Summer 2022</h5>
+									<p class="mb-3">Pilot deployments in streams; ruggedized enclosure and power system.</p>
+									<img src="imgs/Picture6.jpg" alt="Pilot deployment in Michigan 2022" class="mp-tl-img">
+								</div>
+							</article>
+
+							<!-- 2024 validation -->
+							<article class="mp-tl-item">
+								<div class="mp-tl-card">
+									<h5 class="mb-2">2024 · Tested by USGS</h5>
+									<p class="mb-3">Independent validation and side-by-side comparisons.</p>
+									<img src="imgs/Picture7.jpg" alt="USGS testing in 2024" class="mp-tl-img">
+								</div>
+							</article>
+
+							<!-- 2025 field test -->
+							<article class="mp-tl-item">
+								<div class="mp-tl-card">
+									<h5 class="mb-2">2025</h5>
+									<p class="mb-3">Field test</p>
+									<img src="imgs/Picture9.jpg" alt="USGS testing in 2024" class="mp-tl-img">
+								</div>
+							</article>
+
+						</section>
+					</div>
+				</div>
+				<p class="mb-3">Thank you to our sponsor, NOAA Sea Grant, for funding our work.</p>
+			</div>
+		</section>
+
+		<!-- featured news -->
 		<section id="featured-news" class="section">
 			<div class="container">
-				<h2>Featured News</h2>
+				<h2>Microplastic News from around the World</h2>
 				<div id="sg-news" class="row g-4"></div>
 			</div>
 		</section>
 
 		<script>
 			// ---- CONFIG ----
+			// const FEEDS = [
+			// 	'https://seagrant.noaa.gov/our-story/news/feed/',
+			// 	'https://seagrant.noaa.gov/category/featured-news/feed/',
+			// 	'https://seagrant.noaa.gov/feed/'
+			// ];
 			const FEEDS = [
-				'https://seagrant.noaa.gov/our-story/news/feed/',
-				'https://seagrant.noaa.gov/category/featured-news/feed/',
-				'https://seagrant.noaa.gov/feed/'
+				'https://api.allorigins.win/raw?url=https://seagrant.noaa.gov/feed/',
+				'https://api.allorigins.win/raw?url=https://seagrant.noaa.gov/our-story/news/feed/',
+				'https://api.allorigins.win/raw?url=https://seagrant.noaa.gov/category/featured-news/feed/'
 			];
+
 
 			// Simple RSS fetcher (needs a CORS-friendly endpoint).
 			async function fetchFeed(url) {
@@ -118,199 +303,6 @@
 			})();
 		</script>
 
-		<!-- Our Story -->
-		<section id="our-story" class="section">
-			<div class="container">
-				<h2>Our Story</h2>
-				<p class="subtle">
-					Our journey combines dedicated members, sustained research efforts, and strong community engagement.
-					Together, we build knowledge, test innovations, and share insights with partners across research,
-					government, industry, and society.
-				</p>
-
-				<div class="row g-4 mb-5">
-
-					<!-- Our Members -->
-					<div class="col-lg-6">
-						<article class="card-lite p-4 h-100">
-							<h5 class="mb-3">Our Members</h5>
-							<pre>
-PI : Mark Cheng, The University of Alabama
-Co-PI: Puxian Gao, The University of Connecticut
-Co-PI: Adam Skarke, Mississippi State University 
-Co-PI: Ebenezer Nyadjro, Mississippi State University 
-Co-PI: Shaowu Bao, Coastal Carolina University
-Co-PI: Mike Fedoroff , The University of Alabama
-Sea Lisian: Anthony Vedral 
-Partners: MS-AI Sea Grant, SC Sea Grant
-							</pre>
-							<img src="imgs/Picture3.png" class="w-100 rounded-3">
-						</article>
-					</div>
-
-					<!-- Community Building and Engagement -->
-					<div class="col-lg-6">
-						<figure class="card-lite p-2">
-							<img src="imgs/Picture2.png"
-							alt="Community and stakeholder engagement framework: research, industry, agencies, and society"
-							class="w-100 rounded-3">
-							<figcaption class="small text-muted px-2 py-2">
-								Community building and engagement bring together research, federal and state agencies,
-								industry, agriculture, and society to address marine debris and microplastics challenges.
-							</figcaption>
-						</figure>
-					</div>
-
-					
-				</div>
-
-				<div class="row g-4">
-
-					<!-- Research Timeline -->
-					<div class="col-12">
-						<section class="mp-timeline" aria-label="Research timeline">
-
-							<!-- 2020 lab -->
-							<article class="mp-tl-item">
-								<div class="mp-tl-card">
-									<h5 class="mb-2">Early 2020 @ UA</h5>
-									<p class="mb-3">First benchtop prototype and flow-control tests in the lab.</p>
-									<img src="imgs/Picture4.png" alt="Lab prototype in early 2020" class="mp-tl-img">
-								</div>
-							</article>
-
-							<!-- 2020 field -->
-							<article class="mp-tl-item">
-								<div class="mp-tl-card">
-									<h5 class="mb-2">Oct 2020 · Lake Lurleen State Park</h5>
-									<p class="mb-3">Initial field deployment and sampling workflow validation.</p>
-									<img src="imgs/Picture5.png" alt="Field test at Lake Lurleen 2020" class="mp-tl-img">
-								</div>
-							</article>
-
-							<!-- 2022 pilot -->
-							<article class="mp-tl-item">
-								<div class="mp-tl-card">
-									<h5 class="mb-2">Summer 2022 · Michigan</h5>
-									<p class="mb-3">Pilot deployments in streams; ruggedized enclosure and power system.</p>
-									<img src="imgs/Picture6.jpg" alt="Pilot deployment in Michigan 2022" class="mp-tl-img">
-								</div>
-							</article>
-
-							<!-- 2024 validation -->
-							<article class="mp-tl-item">
-								<div class="mp-tl-card">
-									<h5 class="mb-2">2024 · Tested by USGS</h5>
-									<p class="mb-3">Independent validation and side-by-side comparisons with reference methods.</p>
-									<img src="imgs/Picture7.jpg" alt="USGS testing in 2024" class="mp-tl-img">
-								</div>
-							</article>
-						</section>
-					</div>
-
-					
-				</div>
-			</div>
-		</section>
-
-
-	    <!-- Holistic Monitoring -->
-		<section id="holistic" class="section">
-			<div class="container">
-				<h2>Holistic Monitoring of Microplastics</h2>
-				<p class="subtle">
-					Plastics are released, weathered by UV, and fragment into micro- and nano-plastics. Particles are
-					transported by soil erosion and runoff, wind dispersal, and flooding—with additional inputs from
-					wastewater and land-applied sludge. Rivers convey them to lakes and coasts, where they continue to
-					break down and are taken up by aquatic organisms; some also accumulate in soils and sediments.
-				</p>
-
-				<div class="row g-4 align-items-center">
-					<!-- Diagram -->
-					<div class="col-lg-6">
-						<figure class="card-lite p-2">
-							<img src="imgs/Picture1.jpg"
-							alt="Pathways of microplastics: UV fragmentation, runoff, wind dispersal, wastewater/sludge inputs, river transport to lakes/ocean, biotic intake, and continued breakdown."
-							class="w-100 rounded-3">
-							<figcaption class="small text-muted px-2 py-2">
-								Schematic of sources, pathways, exposure, and fate of microplastics across the watershed.
-							</figcaption>
-						</figure>
-					</div>
-
-					<!-- Key takeaways -->
-					<div class="col-lg-6">
-						<article class="card-lite p-4">
-							<h5 class="mb-3">What this means for monitoring</h5>
-							<ul class="mb-3">
-								<li><strong>Sources:</strong> consumer plastics and microbeads; sludge applied to land.</li>
-								<li><strong>Transformation:</strong> UV weathering → fragmentation into MPs/NPs.</li>
-								<li><strong>Transport:</strong> soil erosion &amp; runoff, wind dispersal, flooding.</li>
-								<li><strong>Water inputs:</strong> wastewater effluent and storm-driven pulses.</li>
-								<li><strong>Exposure:</strong> aquatic organisms ingest transported particles.</li>
-								<li><strong>Fate:</strong> continued breakdown; accumulation in soils/sediments.</li>
-							</ul>
-							<p class="mb-0">
-								Our program links field sampling, in-situ sensing, image/ML detection, and confirmatory spectroscopy
-								to quantify each stage in this pathway.
-							</p>
-						</article>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- Monitoring demo -->
-		<section id="gom-sim" class="section">
-			<div class="container">
-				<h2>Gulf of America Drift Simulator (demo)</h2>
-
-				<div class="row g-3 mb-3">
-					<div class="col-12 col-md-3">
-						<label class="form-label">Longitude (−95 to −70)</label>
-						<input id="lon" class="form-control" type="number" step="0.01" value="-88.0">
-					</div>
-					<div class="col-12 col-md-3">
-						<label class="form-label">Latitude (26 to 31)</label>
-						<input id="lat" class="form-control" type="number" step="0.01" value="29.8">
-					</div>
-					<div class="col-12 col-md-3">
-						<label class="form-label">Start (UTC)</label>
-						<input id="start" class="form-control" type="datetime-local">
-					</div>
-					<div class="col-12 col-md-2">
-						<label class="form-label">Hours (1–97)</label>
-						<input id="hours" class="form-control" type="number" min="1" max="97" value="24">
-					</div>
-					<div class="col-12 col-md-1 d-flex align-items-end">
-						<button id="runBtn" class="btn btn-primary w-100" type="button">Run</button>
-					</div>
-				</div>
-
-				<div id="gom-map" style="height:480px" class="rounded-3 mb-2"></div>
-				<div id="sim-status" class="small text-muted"></div>
-
-				<p>Click <a href="https://microplastics.digiapp.org/">here</a> for the website.</p>
-			</div>
-		</section>
-
-
-		<!-- Sensors Development -->
-		<section id="sensors" class="section">
-			<div class="container">
-				<h2>Sensors Development</h2>
-
-				<div class="row g-4">
-					<div class="col-lg-6">
-						<article class="card-lite p-4">
-							<h5 class="mb-3">Sensors</h5>
-							<img src="imgs/Picture8.jpg" class="w-100 rounded-3">
-						</article>
-					</div>
-
-				</div>
-			</div>
-		</section>
 
 	</main>
 
@@ -318,8 +310,7 @@ Partners: MS-AI Sea Grant, SC Sea Grant
 	<nav class="quick-nav" aria-label="Section navigation">
 		<a href="#our-story">Our Story</a>
 		<a href="#holistic">Monitoring</a>
-		<a href="#sensors">Sensors</a>
-		<a href="#events">Events</a>
+		<a href="#timeline">Timeline</a>
 	</nav>
 	<!-- <a class="backtop" href="#home" aria-label="Back to top">↑</a> -->
 
@@ -340,97 +331,5 @@ Partners: MS-AI Sea Grant, SC Sea Grant
 		// year
 		document.getElementById('y').textContent = new Date().getFullYear();
 	</script> -->
-	<script>
-		(function() {
-			// --- Map setup ---
-			const map = L.map('gom-map').setView([29, -88], 6);
-			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-				maxZoom: 10,
-				attribution: '&copy; OpenStreetMap'
-			}).addTo(map);
-
-			const trajLayer = L.geoJSON(null, {
-				style: { weight: 3 }
-			}).addTo(map);
-
-			// --- Helpers ---
-			function toUTCISOStringLocal(dtLocalValue) {
-				// Convert <input type="datetime-local"> value to proper UTC ISO string
-				// Assumes the typed time is intended as UTC; if not, adjust as you prefer.
-				const dt = new Date(dtLocalValue);
-				return dt.toISOString();
-			}
-
-			function validBounds(lon, lat) {
-				return lon >= -95 && lon <= -70 && lat >= 26 && lat <= 31;
-			}
-
-			// Prefill start with current UTC rounded to the hour
-			const startInput = document.getElementById('start');
-			const now = new Date();
-			now.setUTCMinutes(0,0,0);
-			startInput.value = new Date(now.getTime() - now.getTimezoneOffset()*60000).toISOString().slice(0,16); // yyyy-MM-ddTHH:mm
-
-			// --- Run simulation ---
-			document.getElementById('runBtn').addEventListener('click', async () => {
-				const lon = parseFloat(document.getElementById('lon').value);
-				const lat = parseFloat(document.getElementById('lat').value);
-				const hours = parseInt(document.getElementById('hours').value, 10);
-				const startISO = toUTCISOStringLocal(document.getElementById('start').value);
-
-				const status = document.getElementById('sim-status');
-				status.textContent = '';
-
-				// Client-side guards (avoid 400s)
-				if (!validBounds(lon, lat)) {
-					status.textContent = 'Lon/Lat must be inside Gulf of Mexico bounds (lon −95…−70, lat 26…31).';
-					return;
-				}
-				if (!(hours >= 1 && hours <= 97)) {
-					status.textContent = 'Simulation hours must be 1–97.';
-					return;
-				}
-
-				const body = {
-					release_locations: { lons: [lon], lats: [lat] },
-					simulation_hours: hours,
-					start_date: startISO,
-					// output_minutes: 60, // optional
-					// dt_minutes: 5       // optional
-				};
-
-				trajLayer.clearLayers();
-				status.textContent = 'Running simulation…';
-
-				try {
-					// If CORS is blocked, route through your own /proxy endpoint server-side.
-					const res = await fetch('https://traj.digiapp.org/simulate', {
-						method: 'POST',
-						headers: { 'Content-Type':'application/json' },
-						body: JSON.stringify(body)
-					});
-
-					if (!res.ok) {
-						const errText = await res.text().catch(()=> '');
-						throw new Error(`HTTP ${res.status} ${res.statusText} ${errText}`);
-					}
-
-					const geojson = await res.json();
-					const layer = L.geoJSON(geojson, {
-						style: feature => ({ weight: 3 })
-					}).addTo(trajLayer);
-
-					// Fit to result
-					try { map.fitBounds(layer.getBounds(), { padding:[20,20] }); } catch {}
-
-					status.textContent = 'Simulation complete. Paths drawn on the map.';
-				} catch (err) {
-					console.error(err);
-					status.textContent = 'Simulation failed (network/CORS/validation). See console for details.';
-				}
-			});
-		})();
-	</script>
-
 </body>
 </html>
