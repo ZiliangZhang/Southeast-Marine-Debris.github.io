@@ -8,6 +8,11 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/timeline.css">
 
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+	<script
+		src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+	</script>
+
 
 	<style>
 		:root{
@@ -234,6 +239,132 @@ Partners: NOAA Sea Grant, Mississippi-Alabama Sea Grant Consortium, South Caroli
 				<p class="mb-3">Thank you to our sponsor, NOAA Sea Grant, for funding our work.</p>
 			</div>
 		</section>
+
+		<!-- Monitoring demo -->
+		<section id="gom-sim" class="section">
+			<div class="container">
+				<h2>Gulf of Mexico Drift Simulator (demo)</h2>
+
+				<div class="row g-3 mb-3">
+					<div class="col-12 col-md-3">
+						<label class="form-label">Longitude (−95 to −70)</label>
+						<input id="lon" class="form-control" type="number" step="0.01" value="-88.0">
+					</div>
+					<div class="col-12 col-md-3">
+						<label class="form-label">Latitude (26 to 31)</label>
+						<input id="lat" class="form-control" type="number" step="0.01" value="29.8">
+					</div>
+					<div class="col-12 col-md-3">
+						<label class="form-label">Start (UTC)</label>
+						<input id="start" class="form-control" type="datetime-local">
+					</div>
+					<div class="col-12 col-md-2">
+						<label class="form-label">Hours (1–97)</label>
+						<input id="hours" class="form-control" type="number" min="1" max="97" value="24">
+					</div>
+					<div class="col-12 col-md-1 d-flex align-items-end">
+						<button id="runBtn" class="btn btn-primary w-100" type="button">Run</button>
+					</div>
+				</div>
+
+				<div id="gom-map" style="height:480px" class="rounded-3 mb-2"></div>
+				<div id="sim-status" class="small text-muted"></div>
+
+				<p>Click <a href="https://microplastics.digiapp.org/">here</a> for the website.</p>
+			</div>
+		</section>
+
+		<script>
+			(function() {
+				// --- Map setup ---
+				const map = L.map('gom-map').setView([29, -88], 6);
+				L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+					maxZoom: 10,
+					attribution: '&copy; OpenStreetMap'
+				}).addTo(map);
+
+				const trajLayer = L.geoJSON(null, {
+					style: { weight: 3 }
+				}).addTo(map);
+
+				// --- Helpers ---
+				function toUTCISOStringLocal(dtLocalValue) {
+					// Convert <input type="datetime-local"> value to proper UTC ISO string
+					// Assumes the typed time is intended as UTC; if not, adjust as you prefer.
+					const dt = new Date(dtLocalValue);
+					return dt.toISOString();
+				}
+
+				function validBounds(lon, lat) {
+					return lon >= -95 && lon <= -70 && lat >= 26 && lat <= 31;
+				}
+
+				// Prefill start with current UTC rounded to the hour
+				const startInput = document.getElementById('start');
+				const now = new Date();
+				now.setUTCMinutes(0,0,0);
+				startInput.value = new Date(now.getTime() - now.getTimezoneOffset()*60000).toISOString().slice(0,16); // yyyy-MM-ddTHH:mm
+
+				// --- Run simulation ---
+				document.getElementById('runBtn').addEventListener('click', async () => {
+					const lon = parseFloat(document.getElementById('lon').value);
+					const lat = parseFloat(document.getElementById('lat').value);
+					const hours = parseInt(document.getElementById('hours').value, 10);
+					const startISO = toUTCISOStringLocal(document.getElementById('start').value);
+
+					const status = document.getElementById('sim-status');
+					status.textContent = '';
+
+					// Client-side guards (avoid 400s)
+					if (!validBounds(lon, lat)) {
+						status.textContent = 'Lon/Lat must be inside Gulf of Mexico bounds (lon −95…−70, lat 26…31).';
+						return;
+					}
+					if (!(hours >= 1 && hours <= 97)) {
+						status.textContent = 'Simulation hours must be 1–97.';
+						return;
+					}
+
+					const body = {
+						release_locations: { lons: [lon], lats: [lat] },
+						simulation_hours: hours,
+						start_date: startISO,
+						// output_minutes: 60, // optional
+						// dt_minutes: 5       // optional
+					};
+
+					trajLayer.clearLayers();
+					status.textContent = 'Running simulation…';
+
+					try {
+						// If CORS is blocked, route through your own /proxy endpoint server-side.
+						const res = await fetch('https://traj.digiapp.org/simulate', {
+							method: 'POST',
+							headers: { 'Content-Type':'application/json' },
+							body: JSON.stringify(body)
+						});
+
+						if (!res.ok) {
+							const errText = await res.text().catch(()=> '');
+							throw new Error(`HTTP ${res.status} ${res.statusText} ${errText}`);
+						}
+
+						const geojson = await res.json();
+						const layer = L.geoJSON(geojson, {
+							style: feature => ({ weight: 3 })
+						}).addTo(trajLayer);
+
+						// Fit to result
+						try { map.fitBounds(layer.getBounds(), { padding:[20,20] }); } catch {}
+
+						status.textContent = 'Simulation complete. Paths drawn on the map.';
+					} catch (err) {
+						console.error(err);
+						status.textContent = 'Simulation failed (network/CORS/validation). See console for details.';
+					}
+				});
+			})();
+		</script>
 
 		<!-- featured news -->
 		<section id="featured-news" class="section">
