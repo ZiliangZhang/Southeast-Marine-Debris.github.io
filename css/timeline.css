@@ -11,7 +11,7 @@
 .hero::before{
   content:"";
   position:absolute; inset:0;
-  background:url("hero.jpg") center/cover no-repeat;
+  background:url("../imgs/Hero.jpg") center/cover no-repeat;
   filter:brightness(0.65);
   transform:scale(1.02);
 }
@@ -316,4 +316,5 @@
     --tl-img-h: 260px; /* slightly taller cards on large screens */
   }
 }
+
 
